@@ -49,7 +49,7 @@ df = bmp_to_dataset("image.bmp")
 os.remove("image.bmp")
 
 df = pd.DataFrame(df, columns=["color_code", "x", "y", ".ci", ".ri"])
-df = df.astype({"color_code": "int32", "x": "int32", "y": "int32", ".ci": "int32", ".ri": "int32"})
+df = df.astype({"color_code": "float", "x": "int32", "y": "int32", ".ci": "int32", ".ri": "int32"})
 
 df = tercenCtx.add_namespace(df) 
 tercenCtx.save(df)

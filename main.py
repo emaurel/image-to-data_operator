@@ -32,14 +32,14 @@ def bmp_to_dataset(image_path):
     
     width, height = img.size
 
-    #res is an array of 3 columns [color_code, x, y] and width*height rows
-    res = np.zeros((width*height, 3), dtype=int)
+    #res is an array of 3 columns [color_code, x, y, .ci, .ri] and width*height rows
+    res = np.zeros((width*height, 5), dtype=int)
 
     for y in range(height):
             for x in range(width):
                 r, g, b = img.getpixel((x, y))
                 color_code = (r << 16) + (g << 8) + b
-                res[y*width + x] = [color_code, x, y]
+                res[y*width + x] = [color_code, x, y, x, y]
 
     return res
 
@@ -48,7 +48,7 @@ df = bmp_to_dataset("image.bmp")
 #delete the image file
 os.remove("image.bmp")
 
-df = pd.DataFrame(df, columns=["color_code", "x", "y"])
+df = pd.DataFrame(df, columns=["color_code", "x", "y", ".ci", ".ri"])
 
 df = tercenCtx.add_namespace(df) 
 tercenCtx.save(df)
